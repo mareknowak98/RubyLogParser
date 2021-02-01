@@ -4,7 +4,13 @@ class WebParser
   attr_reader(:page, :address)
 
   def initialize(line)
-    splitted_line = line.split(/[ .,;:-]/, 2)
+    splitted_line = line.split(/[ ,;:-]/, 2)
+
+    if splitted_line.length() != 2
+      @page = nil
+      @address = nil
+      return nil
+    end
 
     #check if page contains only letters, numbers "_" or "/"
     if splitted_line[0].match?(/^\/[a-zA-Z_\/0-9]*/) then @page = splitted_line[0] else nil end
