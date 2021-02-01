@@ -1,11 +1,19 @@
 # Parses line to page and user address
-# TODO
+# TODO docs
 class WebParser
   attr_reader(:page, :address)
 
   def initialize(line)
-    @page = "testpage"
-    @address = "123.456.789"
+    splitted_line = line.split(/[ .,;:-]/, 2)
+
+    #check if page contains only letters, numbers "_" or "/"
+    if splitted_line[0].match?(/^\/[a-zA-Z_\/0-9]*/) then @page = splitted_line[0] else nil end
+    if splitted_line[1].match?(/^\d{3}[.]\d{3}[.]\d{3}[.]\d{3}$/)
+      @address = splitted_line[1]
+    else
+      @address = nil
+    end
+
   end
 
 end

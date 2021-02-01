@@ -37,7 +37,7 @@ class WebParserTest < Test::Unit::TestCase
     assert_equal("016.464.657.359", parser_obj.address, "'#{parser_obj.page}' != '016.464.657.359' ")
   end
 
-  #test parse line with address in format other than "\d\d\d[.,:;-]\d\d\d[.,:;-]\d\d\d[.,:;-]\d\d\d[.,:;-]\"
+  #test parse line with address in format other than "\d{3}[.,;:-]\d{3}[.,;:-]\d{3}[.,;:-]\d{3}\"
   def test_wrong_format_address
     test_line1 = "/about 01.464.657.359"
     test_line2 = "/about 016.4a4.657.359"
@@ -58,7 +58,7 @@ class WebParserTest < Test::Unit::TestCase
     delimiters.each { |delimiter|
       parser_obj = WebParser.new(test_line_delimiters.tr(".", delimiter))
       assert_equal("/about", parser_obj.page, "'#{parser_obj.page}' != '/about' ")
-      assert_equal("016.464.657.359", parser_obj.address, "'#{parser_obj.page}' != '016.464.657.359' ")
+      assert_equal(nil, parser_obj.address, "'#{parser_obj.page}' != 'nil' ")
     }
   end
 

@@ -1,5 +1,6 @@
 /.idea
 performance_checker.rb
+tmp.rb
 
 *.gem
 *.rbc
