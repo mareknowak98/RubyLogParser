@@ -61,6 +61,31 @@ class WebParserTest < Test::Unit::TestCase
       assert_equal(nil, parser_obj.address, "'#{parser_obj.page}' != 'nil' ")
     }
   end
+end
 
+class LogCounterTest < Test::Unit::TestCase
+  def setup
+    test_input = [
+      "/about 016.464.657.359",
+      "/about 016.464.657.359",
+      "/about 061.945.150.735",
+      "/about/2 016.464.657.359",
+      "/about/2 016.464.657.359",
+      "/about/2 016.464.657.359",
+      "/about/2 061.945.150.735",
+    ]
+    @log_counter = LogCounter.new()
+    for i in 0..test_input.size-1 do
+      @log_counter.count(test_input[i], test_input[i+1])
+    end
+  end
+
+  def test_most_views
+    assert_equal([["/about/2 4 visits"], ["/about 3 visits"]], @log_counter.page_views, "Unexpected output")
+  end
+
+  def test_most_unique_views
+    assert_equal([["/about/2 3 unique visits"], ["/about 2 unique visits"]], @log_counter.unique_page_views, "Unexpected output")
+  end
 
 end

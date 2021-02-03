@@ -23,3 +23,21 @@ class WebParser
   end
 
 end
+
+class LogCounter
+  @@page_views = []
+  @@unique_page_views = []
+  attr_reader(:page_views, :unique_page_views)
+
+  def initialize
+    #TODO
+    @@page_views = ["test", "list"]
+    p @@page_views
+    p @@unique_page_views
+  end
+
+  def count(line1, line2)
+
+  end
+
+end

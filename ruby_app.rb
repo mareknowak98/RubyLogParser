@@ -1,3 +1,4 @@
+require './web_parser_class'
 
 if ARGV.length < 1
   puts "No log file specified."
