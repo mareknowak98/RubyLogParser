@@ -40,4 +40,11 @@ class LogCounter
 
   end
 
+  def getViews
+
+  end
+
+  def getUniqueViews
+
+  end
 end

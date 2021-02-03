@@ -81,11 +81,11 @@ class LogCounterTest < Test::Unit::TestCase
   end
 
   def test_most_views
-    assert_equal([["/about/2 4 visits"], ["/about 3 visits"]], @log_counter.page_views, "Unexpected output")
+    assert_equal([["/about/2 4 visits"], ["/about 3 visits"]], @log_counter.getViews, "Unexpected output")
   end
 
   def test_most_unique_views
-    assert_equal([["/about/2 3 unique visits"], ["/about 2 unique visits"]], @log_counter.unique_page_views, "Unexpected output")
+    assert_equal([["/about/2 3 unique visits"], ["/about 2 unique visits"]], @log_counter.getUniqueViews, "Unexpected output")
   end
 
 end
