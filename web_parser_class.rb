@@ -1,5 +1,6 @@
 # Parses line to page and user address
 # TODO docs
+
 class WebParser
   attr_reader(:page, :address)
 
@@ -41,21 +42,16 @@ class LogCounter
 
   def count(line)
     unless line.nil? then line_parsed = WebParser.new(line) else nil end
-    # puts line_parsed
     if @prev_line == nil
       @prev_line = line_parsed
       @page_views.store(line_parsed.page, 1)
       @unique_page_views.store(line_parsed.page, 1)
-      puts "1"
       return
     end
-
-    print [@page_views, @unique_page_views, @highest_unique]
 
     if line_parsed == nil
       if @highest_unique >= @unique_page_views[@prev_line.page]
         @unique_page_views[line_parsed.page] = @highest_unique
-
       end
       return
     end
@@ -68,7 +64,6 @@ class LogCounter
     end
 
     #count unique views
-
     if @prev_line == line_parsed
       @highest_unique += 1
       @unique_page_views[line_parsed.page] += 1
@@ -78,13 +73,10 @@ class LogCounter
       end
       @highest_unique = 1
     elsif @prev_line.page != line_parsed.page
-      print [@page_views, @unique_page_views, @highest_unique]
       @unique_page_views.store(line_parsed.page, 1)
       @highest_unique = 1
-      # @unique_page_views[line_parsed.page] += 1
     end
     @prev_line = line_parsed
-
   end
 
   def getViewsList
@@ -95,10 +87,6 @@ class LogCounter
   def getUniqueViewsList
     @unique_page_views = @unique_page_views.sort_by{ |k, v| -v}
     return @unique_page_views.map{|line| lambda{line[0].to_s() + " " + line[1].to_s() + " unique views"}.call}
-  end
-
-  def self.parseToString(list)
-    return list[0].to_s + " views " + list[1].to_s
   end
 
 end

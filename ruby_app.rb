@@ -9,7 +9,18 @@ else
     is_sorted = system("sort -k1,1 -o #{ARGV[0]} #{ARGV[0]}")
     if !is_sorted then abort("Unable to sort the file") end
     file = File.new(ARGV[0])
-    file.each { |line| puts line }
+    log_counter = LogCounter.new
+    file.each { |line|
+      log_counter.count(line)
+    }
+    puts "---------------------"
+    puts log_counter.getViewsList()
+    puts
+    puts "---------------------"
+    puts log_counter.getUniqueViewsList()
+    puts
+    puts "---------------------"
+
   rescue Errno::EACCES => e
     puts("Can't read from #{ARGV[0]}. No permission.")
   rescue => e

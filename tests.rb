@@ -75,7 +75,7 @@ class LogCounterTest < Test::Unit::TestCase
       "/about/2 061.945.150.735",
     ]
     @log_counter = LogCounter.new()
-    for i in 0..test_input.length-1 do
+    for i in 0..test_input.length do
       @log_counter.count(test_input[i])
     end
   end
