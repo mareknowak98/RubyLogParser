@@ -85,6 +85,7 @@ class LogCounter
       @unique_page_views.store(line_parsed.page, 1)
       @highest_unique = 1
     end
+
     @prev_line = line_parsed
   end
 

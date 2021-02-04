@@ -91,5 +91,4 @@ class LogCounterTest < Test::Unit::TestCase
   def test_most_unique_views
     assert_equal(["/about/2 3 unique views", "/about 2 unique views"], @log_counter.getUniqueViewsList, "Unexpected output")
   end
-
 end

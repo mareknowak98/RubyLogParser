@@ -21,7 +21,6 @@ else
     puts "---------------------"
     puts log_counter.getUniqueViewsList()
     puts "---------------------"
-
   rescue Errno::EACCES => e
     puts("Can't read from #{ARGV[0]}. No permission.")
   rescue => e
