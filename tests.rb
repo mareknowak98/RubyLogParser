@@ -1,10 +1,10 @@
 require 'test/unit'
 require './web_parser_class'
 
-#TODO make proper documentation
+##Unit tests for WebParser class
 class WebParserTest < Test::Unit::TestCase
 
-  #test parsing standard line,
+  #test parsing standard proper line
   def test_parser_ok
     parser_obj = WebParser.new("/about/2 016.464.657.359")
     assert_equal("/about/2", parser_obj.page, "'#{parser_obj.page}' != '/about/2' ")
@@ -18,7 +18,7 @@ class WebParserTest < Test::Unit::TestCase
     assert_equal(nil, parser_obj.address, "'#{parser_obj.address}' != 'nil' ")
   end
 
-  #test parsing line with other delimiters than " " between page and address
+  #test parsing line with other delimiters than " " between page and address - should be parsed properly
   def test_parser_wrong_delimiter
     test_line = "/help_page/1 016.464.657.359"
     delimiters = [",", ":", ";", "-"]
@@ -33,8 +33,11 @@ class WebParserTest < Test::Unit::TestCase
   #test parsing line with incorrect page
   def test_wrong_format_page
     parser_obj = WebParser.new("about 016.464.657.359")
+    parser_obj2 = WebParser.new("/ab+out 016.464.657.359")
     assert_equal(nil, parser_obj.page, "'#{parser_obj.page}' != 'nil' ")
     assert_equal("016.464.657.359", parser_obj.address, "'#{parser_obj.page}' != '016.464.657.359' ")
+    assert_equal(nil, parser_obj2.page, "'#{parser_obj2.page}' != 'nil' ")
+    assert_equal("016.464.657.359", parser_obj2.address, "'#{parser_obj2.page}' != '016.464.657.359' ")
   end
 
   #test parse line with address in format other than "\d{3}[.,;:-]\d{3}[.,;:-]\d{3}[.,;:-]\d{3}\"

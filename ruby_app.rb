@@ -1,5 +1,8 @@
 require './web_parser_class'
 
+##run 'ruby ruby_app.rb webserver.log'
+#require 1 argument - input log file
+
 if ARGV.length < 1
   puts "No log file specified."
 elsif !File.file?(ARGV[0])
