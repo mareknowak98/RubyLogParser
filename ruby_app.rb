@@ -2,7 +2,7 @@ require './web_parser_class'
 
 ##run 'ruby ruby_app.rb webserver.log'
 #require 1 argument - input log file
-
+#sort input file by first column
 if ARGV.length < 1
   puts "No log file specified."
 elsif !File.file?(ARGV[0])
@@ -10,7 +10,7 @@ elsif !File.file?(ARGV[0])
 else
   begin
     is_sorted = system("sort -k1,1 -o #{ARGV[0]} #{ARGV[0]}")
-    if !is_sorted then abort("Unable to sort the file") end
+    unless is_sorted then abort("Unable to sort the file") end
     file = File.new(ARGV[0])
     log_counter = LogCounter.new
     file.each { |line|
