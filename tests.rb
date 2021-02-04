@@ -33,14 +33,14 @@ class WebParserTest < Test::Unit::TestCase
   #test parsing line with incorrect page
   def test_wrong_format_page
     parser_obj = WebParser.new("about 016.464.657.359")
-    parser_obj2 = WebParser.new("/ab+out 016.464.657.359")
+    parser_obj2 = WebParser.new("/ab;out 016.464.657.359")
     assert_equal(nil, parser_obj.page, "'#{parser_obj.page}' != 'nil' ")
     assert_equal("016.464.657.359", parser_obj.address, "'#{parser_obj.page}' != '016.464.657.359' ")
-    assert_equal(nil, parser_obj2.page, "'#{parser_obj2.page}' != 'nil' ")
-    assert_equal("016.464.657.359", parser_obj2.address, "'#{parser_obj2.page}' != '016.464.657.359' ")
+    assert_equal("/ab", parser_obj2.page, "'#{parser_obj2.page}' != '/ab' ")
+    assert_equal(nil, parser_obj2.address, "'#{parser_obj2.page}' != 'nil' ")
   end
 
-  #test parse line with address in format other than "\d{3}[.,;:-]\d{3}[.,;:-]\d{3}[.,;:-]\d{3}\"
+  #test parse line with address in format other than "\d{3}.\d{3}.\d{3}.\d{3}\"
   def test_wrong_format_address
     test_line1 = "/about 01.464.657.359"
     test_line2 = "/about 016.4a4.657.359"
@@ -66,6 +66,7 @@ class WebParserTest < Test::Unit::TestCase
   end
 end
 
+##Unit tests for LogCounter class 
 class LogCounterTest < Test::Unit::TestCase
   def setup
     test_input = [

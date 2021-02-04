@@ -19,7 +19,7 @@ class WebParser
       return nil
     end
 
-    if split_line[0].match?(/^\/[a-zA-Z_\/0-9]*/) then @page = split_line[0] else nil end
+    if split_line[0].match?(/^\/[a-zA-Z_\/0-9]/) then @page = split_line[0] else nil end
     if split_line[1].match?(/^\d{3}[.]\d{3}[.]\d{3}[.]\d{3}$/)
       @address = split_line[1]
     else
