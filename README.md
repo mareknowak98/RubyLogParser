@@ -1,8 +1,8 @@
 # RubyLogParser
 Ruby web log parser. Take input file with logs and print overall and single address page views.
 
-#run script
+## run script
 ruby ruby_app.rb webserver.log
 
-#run tests
+## run tests
 ruby tests.rb
