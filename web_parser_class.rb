@@ -66,7 +66,6 @@ class LogCounter
     #count unique views
     if @prev_line == line_parsed
       @highest_unique += 1
-      @unique_page_views[line_parsed.page] += 1
     elsif @prev_line.page == line_parsed.page and @prev_line.address != line_parsed.address
       if @highest_unique >= @unique_page_views[line_parsed.page]
         @unique_page_views[line_parsed.page] = @highest_unique
@@ -77,6 +76,8 @@ class LogCounter
       @highest_unique = 1
     end
     @prev_line = line_parsed
+
+    print [@unique_page_views, @highest_unique]
   end
 
   def getViewsList

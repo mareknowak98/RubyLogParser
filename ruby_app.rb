@@ -15,10 +15,8 @@ else
     }
     puts "---------------------"
     puts log_counter.getViewsList()
-    puts
     puts "---------------------"
     puts log_counter.getUniqueViewsList()
-    puts
     puts "---------------------"
 
   rescue Errno::EACCES => e
