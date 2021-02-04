@@ -2,7 +2,7 @@ require './web_parser_class'
 
 ##run 'ruby ruby_app.rb webserver.log'
 #require 1 argument - input log file
-#sort input file by first column
+#override input file sorted by first column - user must have write permissions
 if ARGV.length < 1
   puts "No log file specified."
 elsif !File.file?(ARGV[0])
