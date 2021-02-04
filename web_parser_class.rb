@@ -22,29 +22,83 @@ class WebParser
 
   end
 
+  def ==(compared_obj)
+    if (compared_obj != nil) and (self.page == compared_obj.page) and (self.address == compared_obj.address) then return true else false end
+  end
+
 end
 
 class LogCounter
-  @@page_views = []
-  @@unique_page_views = []
   attr_reader(:page_views, :unique_page_views)
 
   def initialize
-    #TODO
-    @@page_views = ["test", "list"]
-    p @@page_views
-    p @@unique_page_views
+    @page_views = Hash.new
+    @unique_page_views = Hash.new
+
+    @highest_unique = 1
+    @prev_line = nil
   end
 
-  def count(line1, line2)
+  def count(line)
+    unless line.nil? then line_parsed = WebParser.new(line) else nil end
+    # puts line_parsed
+    if @prev_line == nil
+      @prev_line = line_parsed
+      @page_views.store(line_parsed.page, 1)
+      @unique_page_views.store(line_parsed.page, 1)
+      puts "1"
+      return
+    end
+
+    print [@page_views, @unique_page_views, @highest_unique]
+
+    if line_parsed == nil
+      if @highest_unique >= @unique_page_views[@prev_line.page]
+        @unique_page_views[line_parsed.page] = @highest_unique
+
+      end
+      return
+    end
+
+    #count all views
+    if @page_views.key?(line_parsed.page)
+      @page_views[line_parsed.page] += 1
+    else
+      @page_views.store(line_parsed.page, 1)
+    end
+
+    #count unique views
+
+    if @prev_line == line_parsed
+      @highest_unique += 1
+      @unique_page_views[line_parsed.page] += 1
+    elsif @prev_line.page == line_parsed.page and @prev_line.address != line_parsed.address
+      if @highest_unique >= @unique_page_views[line_parsed.page]
+        @unique_page_views[line_parsed.page] = @highest_unique
+      end
+      @highest_unique = 1
+    elsif @prev_line.page != line_parsed.page
+      print [@page_views, @unique_page_views, @highest_unique]
+      @unique_page_views.store(line_parsed.page, 1)
+      @highest_unique = 1
+      # @unique_page_views[line_parsed.page] += 1
+    end
+    @prev_line = line_parsed
 
   end
 
-  def getViews
-
+  def getViewsList
+    @page_views = @page_views.sort_by{ |k, v| -v}
+    return @page_views.map{|line| lambda{line[0].to_s() + " " + line[1].to_s() + " visits"}.call}
   end
 
-  def getUniqueViews
-
+  def getUniqueViewsList
+    @unique_page_views = @unique_page_views.sort_by{ |k, v| -v}
+    return @unique_page_views.map{|line| lambda{line[0].to_s() + " " + line[1].to_s() + " unique views"}.call}
   end
+
+  def self.parseToString(list)
+    return list[0].to_s + " views " + list[1].to_s
+  end
+
 end

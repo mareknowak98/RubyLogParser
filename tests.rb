@@ -75,17 +75,17 @@ class LogCounterTest < Test::Unit::TestCase
       "/about/2 061.945.150.735",
     ]
     @log_counter = LogCounter.new()
-    for i in 0..test_input.size-1 do
-      @log_counter.count(test_input[i], test_input[i+1])
+    for i in 0..test_input.length-1 do
+      @log_counter.count(test_input[i])
     end
   end
 
   def test_most_views
-    assert_equal([["/about/2 4 visits"], ["/about 3 visits"]], @log_counter.getViews, "Unexpected output")
+    assert_equal(["/about/2 4 visits", "/about 3 visits"], @log_counter.getViewsList, "Unexpected output")
   end
 
   def test_most_unique_views
-    assert_equal([["/about/2 3 unique visits"], ["/about 2 unique visits"]], @log_counter.getUniqueViews, "Unexpected output")
+    assert_equal(["/about/2 3 unique views", "/about 2 unique views"], @log_counter.getUniqueViewsList, "Unexpected output")
   end
 
 end
